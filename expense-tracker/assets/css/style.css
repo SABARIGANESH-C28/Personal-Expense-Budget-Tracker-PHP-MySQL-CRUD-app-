@@ -1,0 +1,53 @@
+/* Layout: fixed top bar + fixed sidebar on desktop, stacked on mobile. */
+:root {
+  --topbar-h: 56px;
+  --sidebar-w: 230px;
+}
+
+body { background: #f4f6f9; padding-top: var(--topbar-h); }
+
+.topbar { height: var(--topbar-h); z-index: 1030; }
+
+/* Desktop (>= 768px): sidebar is fixed to the left edge, content gets a left margin
+   equal to the sidebar width (box model: margin pushes it out of the sidebar's way). */
+@media (min-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: var(--topbar-h);
+    left: 0;
+    bottom: 0;
+    width: var(--sidebar-w);
+    overflow-y: auto;
+  }
+  .content { margin-left: var(--sidebar-w); padding: 1.5rem; }
+}
+
+/* Mobile: the sidebar is a Bootstrap offcanvas, content uses the full width. */
+@media (max-width: 767.98px) {
+  .content { padding: 1rem; }
+  .stat-card .stat-value { font-size: 1.25rem; }
+}
+
+.sidebar .nav-link { border-radius: .5rem; }
+.sidebar .nav-link:hover { background: rgba(255, 255, 255, .12); }
+
+/* Cards */
+.stat-card { border: 0; border-left: 5px solid var(--bs-primary); box-shadow: 0 1px 4px rgba(0, 0, 0, .08); }
+.stat-card.income  { border-left-color: var(--bs-success); }
+.stat-card.expense { border-left-color: var(--bs-danger); }
+.stat-card.balance { border-left-color: var(--bs-primary); }
+.stat-card .stat-value { font-size: 1.6rem; font-weight: 700; }
+
+.card { border: 0; box-shadow: 0 1px 4px rgba(0, 0, 0, .06); }
+
+/* Auth pages */
+.auth-card { max-width: 440px; margin: 0 auto; }
+
+/* Tables scroll sideways on small screens instead of breaking the layout */
+.table-responsive { -webkit-overflow-scrolling: touch; }
+
+.amount { font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+.chart-box { position: relative; height: 300px; }
+
+.flash { margin-bottom: 1rem; }
